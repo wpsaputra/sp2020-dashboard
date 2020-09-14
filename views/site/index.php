@@ -4,6 +4,7 @@
 
 // use yii\base\View;
 
+use yii\helpers\ArrayHelper;
 use yii\web\View;
 
 $this->title = 'SP2020 Dashboard';
@@ -89,6 +90,9 @@ document.addEventListener('DOMContentLoaded', function () {
             '#3A3A4F',
             // '#434348',
         ],
+        credits: {
+            enabled: false
+        },
     });
 });
 
@@ -148,12 +152,100 @@ document.addEventListener('DOMContentLoaded', function () {
             '#3A3A4F',
             // '#434348',
         ],
+        credits: {
+            enabled: false
+        },
     });
 });
 
 
 EOT_JS_CODE, View::POS_END
 );
+
+$target_sls_per_kab = Yii::$app->db->createCommand('SELECT KDKAB, COUNT(*) FROM m_qrcode GROUP BY KDKAB ORDER BY KDKAB')->queryAll();
+$arr_target_sls_per_kab =  array();
+foreach ($target_sls_per_kab as $key => $value) {
+    $arr_target_sls_per_kab[] = $value["COUNT(*)"];
+}
+
+$arr_target_sls_per_kab = json_encode($arr_target_sls_per_kab);
+$arr_target_sls_per_kab = str_replace('"', "", $arr_target_sls_per_kab);
+// echo($arr_target_sls_per_kab);
+
+$realisasi_sls_per_kab = Yii::$app->db->createCommand('SELECT SUBSTRING(IDQR, 1, 4) AS KDKAB, COUNT(DISTINCT IDQR) AS JUMLAH FROM batch GROUP BY SUBSTRING(IDQR, 1, 4)')->queryAll();
+$arr_realisasi_sls_per_kab =  array();
+$arr_realisasi_sls_per_kab["7401"] =  0;
+$arr_realisasi_sls_per_kab["7402"] =  0;
+$arr_realisasi_sls_per_kab["7403"] =  0;
+$arr_realisasi_sls_per_kab["7404"] =  0;
+$arr_realisasi_sls_per_kab["7405"] =  0;
+$arr_realisasi_sls_per_kab["7406"] =  0;
+$arr_realisasi_sls_per_kab["7407"] =  0;
+$arr_realisasi_sls_per_kab["7408"] =  0;
+$arr_realisasi_sls_per_kab["7409"] =  0;
+$arr_realisasi_sls_per_kab["7410"] =  0;
+$arr_realisasi_sls_per_kab["7411"] =  0;
+$arr_realisasi_sls_per_kab["7412"] =  0;
+$arr_realisasi_sls_per_kab["7413"] =  0;
+$arr_realisasi_sls_per_kab["7414"] =  0;
+$arr_realisasi_sls_per_kab["7415"] =  0;
+$arr_realisasi_sls_per_kab["7471"] =  0;
+$arr_realisasi_sls_per_kab["7472"] =  0;
+
+foreach ($realisasi_sls_per_kab as $key => $value) {
+    $arr_realisasi_sls_per_kab[$value["KDKAB"]] = $value["JUMLAH"];
+}
+
+$arr_realisasi_sls_per_kab = json_encode(array_values($arr_realisasi_sls_per_kab));
+$arr_realisasi_sls_per_kab = str_replace('"', "", $arr_realisasi_sls_per_kab);
+// print_r($arr_realisasi_sls_per_kab);
+
+$target_penduduk_per_kab = Yii::$app->db->createCommand('SELECT KDKAB, SUM(Penduduk_Total) FROM m_qrcode GROUP BY KDKAB')->queryAll();
+$arr_target_penduduk_per_kab =  array();
+foreach ($target_penduduk_per_kab as $key => $value) {
+    $arr_target_penduduk_per_kab[] = $value["SUM(Penduduk_Total)"];
+}
+
+$arr_target_penduduk_per_kab = json_encode($arr_target_penduduk_per_kab);
+$arr_target_penduduk_per_kab = str_replace('"', "", $arr_target_penduduk_per_kab);
+// print_r($arr_target_penduduk_per_kab);
+
+
+$jumlah_penduduk_per_kab = Yii::$app->db->createCommand('SELECT SUBSTRING(c.IDQR, 1,4) AS KDKAB, SUM(c.107a)+SUM(c.107b) AS JUMLAH FROM 
+(
+SELECT a.*, b.107a, b.107b, b.107c, b.107d FROM (
+    SELECT a.IDQR, MAX(a.updated_date) AS max_updated_date
+    FROM batch a
+    GROUP BY a.IDQR
+) AS a LEFT JOIN batch b
+ON a.IDQR=b.IDQR AND a.max_updated_date=b.updated_date
+) AS c GROUP BY SUBSTRING(c.IDQR, 1,4)
+')->queryAll();
+
+$arr_realisasi_jumlah_penduduk_per_kab =  array();
+$arr_realisasi_jumlah_penduduk_per_kab["7401"] =  0;
+$arr_realisasi_jumlah_penduduk_per_kab["7402"] =  0;
+$arr_realisasi_jumlah_penduduk_per_kab["7403"] =  0;
+$arr_realisasi_jumlah_penduduk_per_kab["7404"] =  0;
+$arr_realisasi_jumlah_penduduk_per_kab["7405"] =  0;
+$arr_realisasi_jumlah_penduduk_per_kab["7406"] =  0;
+$arr_realisasi_jumlah_penduduk_per_kab["7407"] =  0;
+$arr_realisasi_jumlah_penduduk_per_kab["7408"] =  0;
+$arr_realisasi_jumlah_penduduk_per_kab["7409"] =  0;
+$arr_realisasi_jumlah_penduduk_per_kab["7410"] =  0;
+$arr_realisasi_jumlah_penduduk_per_kab["7411"] =  0;
+$arr_realisasi_jumlah_penduduk_per_kab["7412"] =  0;
+$arr_realisasi_jumlah_penduduk_per_kab["7413"] =  0;
+$arr_realisasi_jumlah_penduduk_per_kab["7414"] =  0;
+$arr_realisasi_jumlah_penduduk_per_kab["7415"] =  0;
+$arr_realisasi_jumlah_penduduk_per_kab["7471"] =  0;
+$arr_realisasi_jumlah_penduduk_per_kab["7472"] =  0;
+
+foreach ($jumlah_penduduk_per_kab as $key => $value) {
+    $arr_realisasi_jumlah_penduduk_per_kab[$value["KDKAB"]] = $value["JUMLAH"];
+}
+$arr_realisasi_jumlah_penduduk_per_kab = json_encode(array_values($arr_realisasi_jumlah_penduduk_per_kab));
+$arr_realisasi_jumlah_penduduk_per_kab = str_replace('"', "", $arr_realisasi_jumlah_penduduk_per_kab);
 
 $this->registerJs( <<< EOT_JS_CODE
   // JS code here
@@ -163,11 +255,11 @@ document.addEventListener('DOMContentLoaded', function () {
             type: 'column'
         },
         title: {
-            text: 'Monthly Average Rainfall'
+            text: 'Target Realisasi Dokumen dan Penduduk per Kabupaten'
         },
-        subtitle: {
-            text: 'Source: WorldClimate.com'
-        },
+        // subtitle: {
+        //     text: 'Source: WorldClimate.com'
+        // },
         xAxis: {
             categories: [
                 'Buton',
@@ -181,6 +273,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 'Buton Utara',
                 'Konawe Utara',
                 'Kolaka Timur',
+                'Konawe Kepulauan',
+                'Muna Barat',
+                'Buton Tengah',
+                'Buton Selatan',
                 'Kendari',
                 'Baubau'
             ],
@@ -207,20 +303,24 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         },
         series: [{
-            name: 'Tokyo',
-            data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4, 50]
+            name: 'Target SLS',
+            // data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4, 50]
+            data: $arr_target_sls_per_kab
     
         }, {
-            name: 'New York',
-            data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3, 50]
+            name: 'Realisasi SLS',
+            // data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3, 50]
+            data: $arr_realisasi_sls_per_kab
     
         }, {
-            name: 'London',
-            data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2, 50]
+            name: 'Target Penduduk',
+            // data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2, 50]
+            data: $arr_target_penduduk_per_kab
     
         }, {
-            name: 'Berlin',
-            data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1, 50]
+            name: 'Realisasi Penduduk',
+            // data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1, 50]
+            data: $arr_realisasi_jumlah_penduduk_per_kab
     
         }]
     });
