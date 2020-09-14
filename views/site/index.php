@@ -285,13 +285,13 @@ document.addEventListener('DOMContentLoaded', function () {
         yAxis: {
             min: 0,
             title: {
-                text: 'Rainfall (mm)'
+                text: 'Jumlah SLS'
             }
         },
         tooltip: {
             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
             pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                '<td style="padding:0"><b>{point.y:1f} SLS</b></td></tr>',
             footerFormat: '</table>',
             shared: true,
             useHTML: true
@@ -312,7 +312,74 @@ document.addEventListener('DOMContentLoaded', function () {
             // data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3, 50]
             data: $arr_realisasi_sls_per_kab
     
-        }, {
+        }],
+        credits: {
+            enabled: false
+        },
+    });
+    
+});
+
+
+EOT_JS_CODE, View::POS_END
+);
+
+$this->registerJs( <<< EOT_JS_CODE
+  // JS code here
+document.addEventListener('DOMContentLoaded', function () {
+    var chart3 = Highcharts.chart('chart4', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Target Realisasi Dokumen dan Penduduk per Kabupaten'
+        },
+        // subtitle: {
+        //     text: 'Source: WorldClimate.com'
+        // },
+        xAxis: {
+            categories: [
+                'Buton',
+                'Muna',
+                'Konawe',
+                'Kolaka',
+                'Konawe Selatan',
+                'Bombana',
+                'Wakatobi',
+                'Kolaka Utara',
+                'Buton Utara',
+                'Konawe Utara',
+                'Kolaka Timur',
+                'Konawe Kepulauan',
+                'Muna Barat',
+                'Buton Tengah',
+                'Buton Selatan',
+                'Kendari',
+                'Baubau'
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Penduduk'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:1f} Jiwa</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
             name: 'Target Penduduk',
             // data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2, 50]
             data: $arr_target_penduduk_per_kab
@@ -322,7 +389,10 @@ document.addEventListener('DOMContentLoaded', function () {
             // data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1, 50]
             data: $arr_realisasi_jumlah_penduduk_per_kab
     
-        }]
+        }],
+        credits: {
+            enabled: false
+        },
     });
     
 });
@@ -352,6 +422,10 @@ EOT_JS_CODE, View::POS_END
         </div>
         <div class="row" style="margin: 10px 0px;">
             <div id="chart3" class="col-lg-12">
+            </div>
+        </div>
+        <div class="row" style="margin: 10px 0px;">
+            <div id="chart4" class="col-lg-12">
             </div>
         </div>
 
