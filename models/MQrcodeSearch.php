@@ -42,7 +42,16 @@ class MQrcodeSearch extends MQrcode
     {
         $query = MQrcode::find();
         // $query->joinWith(['batches']);
-        $query->join("LEFT JOIN", "batch", 'm_qrcode.IDQR = batch.IDQR');
+        // $query->join("LEFT JOIN", "batch", 'm_qrcode.IDQR = batch.IDQR AND NOT EXISTS (
+        //     SELECT 1 FROM batch p1
+        //     WHERE p1.IDQR = m_qrcode.IDQR
+        //     AND p1.updated_date < batch.updated_date
+        //   )');
+
+        // $query->join("LEFT JOIN", "batch p1", 'm_qrcode.IDQR = p1.IDQR');
+        // $query->join("LEFT OUTER JOIN", "batch p2", "(m_qrcode.IDQR = p2.IDQR) AND 
+        // (p1.updated_date < p2.updated_date OR (p1.updated_date = p2.updated_date AND p1.id < p2.id))");
+        // $query->where("p2.id IS NULL");
 
 
         // add conditions that should always apply here

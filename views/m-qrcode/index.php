@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\MQrcodeSearch */
@@ -94,7 +95,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     // return json_encode($model::find()->one());
                     // return $model::find()->one();
                     // return json_encode($model->getBatches()->one()["107a"]+$model->getBatches()->one()["107b"]);
-                    return $model->getBatches()->one()["107a"]+$model->getBatches()->one()["107b"];
+                    
+                    // return $model->getBatches()->one()["107a"]+$model->getBatches()->one()["107b"];
+                    // $val =  ArrayHelper::map($model->batches, 'IDQR', '107a');
+                    // return json_encode($val);
+
+                    // https://forum.yiiframework.com/t/show-data-from-hasmany-relation-in-gridview/84162/2
+                    return join(', ', yii\helpers\ArrayHelper::map($model->batches, 'IDQR', '107a'))+join(', ', yii\helpers\ArrayHelper::map($model->batches, 'IDQR', '107b'));
+                    // return ArrayHelper::map($model->batches, 'IDQR', '107a');
+
+
                 },
             ],
             // '107a',
