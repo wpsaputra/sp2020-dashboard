@@ -41,7 +41,8 @@ class MQrcodeSearch extends MQrcode
     public function search($params)
     {
         $query = MQrcode::find();
-        $query->joinWith(['batches']);
+        // $query->joinWith(['batches']);
+        $query->join("LEFT JOIN", "batch", 'm_qrcode.IDQR = batch.IDQR');
 
 
         // add conditions that should always apply here

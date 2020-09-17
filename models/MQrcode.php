@@ -94,6 +94,7 @@ class MQrcode extends \yii\db\ActiveRecord
      */
     public function getBatches()
     {
-        return $this->hasMany(Batch::className(), ['IDQR' => 'IDQR']);
+        // return $this->hasMany(Batch::className(), ['IDQR' => 'IDQR']);
+        return $this->hasOne(Batch::className(), ['IDQR' => 'IDQR']);
     }
 }
