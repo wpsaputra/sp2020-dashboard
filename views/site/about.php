@@ -11,8 +11,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        This is the About page. You may modify the following file to customize its content:
+        Website ini dibuat untuk mempermudah proses monitoring progress SP2020 Provinsi Sulawesi Tenggara. 
     </p>
+    <code>Silahkan melaporkan ke admin jika menemukan bug/error pada aplikasi.</code>
 
-    <code><?= __FILE__ ?></code>
 </div>

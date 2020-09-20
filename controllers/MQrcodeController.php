@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\MQrcode;
 use app\models\MQrcodeSearch;
+use app\models\Batch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -52,8 +53,10 @@ class MQrcodeController extends Controller
      */
     public function actionView($id)
     {
+        $model_batch = Batch::find()->where(['IDQR'=>$id])->orderBy(['updated_date'=>SORT_DESC])->all();
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'model_batch' => $model_batch,
         ]);
     }
 
