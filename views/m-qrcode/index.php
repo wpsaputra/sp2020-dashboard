@@ -8,7 +8,7 @@ use yii\helpers\ArrayHelper;
 /* @var $searchModel app\models\MQrcodeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'M Qrcodes';
+$this->title = 'Master Qrcode';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mqrcode-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create M Qrcode', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php //Html::a('Create M Qrcode', ['create'], ['class' => 'btn btn-success']); ?>
     </p>
 
     <div style="width: 100%; overflow-x: scroll;">
@@ -84,26 +84,13 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => '107a+107b',
                 'label' => 'Penduduk Pencacahan (107a+107b)',
-                // 'value' => 'batches.107a'
-                // 'value' => function ($model) {
-                //     // return $model->getBatches()["107a"]+ $model->getBatches()["107b"];
-                //     return $model->getBatches()["107a"]+ $model->getBatches()["107b"];
-                // },
+                'format' => 'raw',
                 'value' => function ($model) {
-                    // return $model->getBatches()["107a"]+ $model->getBatches()["107b"];
-                    // return $model->getBatches();
-                    // return json_encode($model::find()->one());
-                    // return $model::find()->one();
-                    // return json_encode($model->getBatches()->one()["107a"]+$model->getBatches()->one()["107b"]);
-                    
-                    // return $model->getBatches()->one()["107a"]+$model->getBatches()->one()["107b"];
-                    // $val =  ArrayHelper::map($model->batches, 'IDQR', '107a');
-                    // return json_encode($val);
-
-                    // https://forum.yiiframework.com/t/show-data-from-hasmany-relation-in-gridview/84162/2
-                    return join(', ', yii\helpers\ArrayHelper::map($model->batches, 'IDQR', '107a'))+join(', ', yii\helpers\ArrayHelper::map($model->batches, 'IDQR', '107b'));
-                    // return ArrayHelper::map($model->batches, 'IDQR', '107a');
-
+                    try {
+                        return json_encode(ArrayHelper::getColumn($model->batches, '107a')[0]+ArrayHelper::getColumn($model->batches, '107b')[0]);
+                    } catch (\Throwable $th) {
+                        return '<span class="not-set">(not set)</span>';
+                    }
 
                 },
             ],
@@ -111,48 +98,139 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => '107a',
                 'label' => '107a',
-                'value' => 'batches.107a'
+                'format' => 'raw',
+                'value' => function ($model) {
+                    try {
+                        return json_encode(ArrayHelper::getColumn($model->batches, '107a')[0]);
+                    } catch (\Throwable $th) {
+                        return '<span class="not-set">(not set)</span>';
+                    }
+
+                },
             ],
             [
                 'attribute' => '107b',
                 'label' => '107b',
-                'value' => 'batches.107b'
+                'format' => 'raw',
+                'value' => function ($model) {
+                    try {
+                        return json_encode(ArrayHelper::getColumn($model->batches, '107b')[0]);
+                    } catch (\Throwable $th) {
+                        return '<span class="not-set">(not set)</span>';
+                    }
+
+                },
             ],
             [
                 'attribute' => '107c',
                 'label' => '107c',
-                'value' => 'batches.107c'
+                'format' => 'raw',
+                'value' => function ($model) {
+                    try {
+                        return json_encode(ArrayHelper::getColumn($model->batches, '107c')[0]);
+                    } catch (\Throwable $th) {
+                        return '<span class="not-set">(not set)</span>';
+                    }
+
+                },
             ],
             [
                 'attribute' => '107d',
                 'label' => '107d',
-                'value' => 'batches.107d'
+                'format' => 'raw',
+                'value' => function ($model) {
+                    try {
+                        return json_encode(ArrayHelper::getColumn($model->batches, '107d')[0]);
+                    } catch (\Throwable $th) {
+                        return '<span class="not-set">(not set)</span>';
+                    }
+
+                },
             ],
             [
                 'attribute' => '108a',
                 'label' => '108a',
-                'value' => 'batches.108a'
+                'format' => 'raw',
+                'value' => function ($model) {
+                    try {
+                        return json_encode(ArrayHelper::getColumn($model->batches, '108a')[0]);
+                    } catch (\Throwable $th) {
+                        return '<span class="not-set">(not set)</span>';
+                    }
+
+                },
             ],
             [
                 'attribute' => '108b',
                 'label' => '108b',
-                'value' => 'batches.108b'
+                'format' => 'raw',
+                'value' => function ($model) {
+                    try {
+                        return json_encode(ArrayHelper::getColumn($model->batches, '108b')[0]);
+                    } catch (\Throwable $th) {
+                        return '<span class="not-set">(not set)</span>';
+                    }
+
+                },
             ],
             [
                 'attribute' => '109a',
                 'label' => '109a',
-                'value' => 'batches.109a'
+                'format' => 'raw',
+                'value' => function ($model) {
+                    try {
+                        return json_encode(ArrayHelper::getColumn($model->batches, '109a')[0]);
+                    } catch (\Throwable $th) {
+                        return '<span class="not-set">(not set)</span>';
+                    }
+
+                },
             ],
             [
                 'attribute' => '109b',
                 'label' => '109b',
-                'value' => 'batches.109b'
+                'format' => 'raw',
+                'value' => function ($model) {
+                    try {
+                        return json_encode(ArrayHelper::getColumn($model->batches, '109b')[0]);
+                    } catch (\Throwable $th) {
+                        return '<span class="not-set">(not set)</span>';
+                    }
+
+                },
             ],
 
             //'Keluarga_Total',
             //'flag_is_digunakan',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            // ['class' => 'yii\grid\ActionColumn'],
+
+            [  
+                'class' => 'yii\grid\ActionColumn',
+                // 'contentOptions' => ['style' => 'width:260px;'],
+                'header'=>'Actions',
+                // 'template' => '{view} {delete}',
+                'template' => '{view}',
+                'buttons' => [
+        
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-search"></span> View', $url, [
+                                    'title' => Yii::t('app', 'View'),
+                                    'class'=>'btn btn-primary btn-xs',                                  
+                        ]);
+                    },
+                ],
+        
+                // 'urlCreator' => function ($action, $model, $key, $index) {
+                //     if ($action === 'view') {
+                //         $url ='/jobs/view?id='.$model->jobid;
+                //         return $url;
+                //     }
+                // }
+        
+            ],
+
+
         ],
     ]); ?>
     

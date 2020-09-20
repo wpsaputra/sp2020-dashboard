@@ -6,6 +6,7 @@
 
 use yii\helpers\ArrayHelper;
 use yii\web\View;
+use yii\helpers\Url;
 
 $this->title = 'SP2020 Dashboard';
 $this->registerJsFile(
@@ -247,6 +248,7 @@ foreach ($jumlah_penduduk_per_kab as $key => $value) {
 $arr_realisasi_jumlah_penduduk_per_kab = json_encode(array_values($arr_realisasi_jumlah_penduduk_per_kab));
 $arr_realisasi_jumlah_penduduk_per_kab = str_replace('"', "", $arr_realisasi_jumlah_penduduk_per_kab);
 
+$url = json_encode(Url::to(['m-qrcode/index', 'MQrcodeSearch[NMKAB]'=>'']));
 $this->registerJs( <<< EOT_JS_CODE
   // JS code here
 document.addEventListener('DOMContentLoaded', function () {
@@ -255,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function () {
             type: 'column'
         },
         title: {
-            text: 'Target Realisasi Dokumen dan Penduduk per Kabupaten'
+            text: 'Target Realisasi Dokumen per Kabupaten'
         },
         // subtitle: {
         //     text: 'Source: WorldClimate.com'
@@ -300,6 +302,19 @@ document.addEventListener('DOMContentLoaded', function () {
             column: {
                 pointPadding: 0.2,
                 borderWidth: 0
+            },
+            series: {
+                cursor: 'pointer',
+                point: {
+                    events: {
+                        click: function () {
+                            // alert('Category: ' + this.category + ', value: ' + this.y);
+                            // location.href = 'https://en.wikipedia.org/wiki/'
+                            // location.href = 'https://sultradata.com/'+$url
+                            location.href = $url + this.category
+                        }
+                    }
+                }
             }
         },
         series: [{
@@ -324,6 +339,7 @@ document.addEventListener('DOMContentLoaded', function () {
 EOT_JS_CODE, View::POS_END
 );
 
+// $url = json_encode(Url::to(['m-qrcode/index', 'MQrcodeSearch[NMKAB]'=>'']));
 $this->registerJs( <<< EOT_JS_CODE
   // JS code here
 document.addEventListener('DOMContentLoaded', function () {
@@ -332,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function () {
             type: 'column'
         },
         title: {
-            text: 'Target Realisasi Dokumen dan Penduduk per Kabupaten'
+            text: 'Target Realisasi Penduduk per Kabupaten'
         },
         // subtitle: {
         //     text: 'Source: WorldClimate.com'
@@ -377,6 +393,19 @@ document.addEventListener('DOMContentLoaded', function () {
             column: {
                 pointPadding: 0.2,
                 borderWidth: 0
+            },
+            series: {
+                cursor: 'pointer',
+                point: {
+                    events: {
+                        click: function () {
+                            // alert('Category: ' + this.category + ', value: ' + this.y);
+                            // location.href = 'https://en.wikipedia.org/wiki/'
+                            // location.href = 'https://sultradata.com/'+$url
+                            location.href = $url + this.category
+                        }
+                    }
+                }
             }
         },
         series: [{
